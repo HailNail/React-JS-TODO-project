@@ -1,0 +1,304 @@
+nav {
+  display: flex;
+  border-bottom: 2px solid var(--neutral-color-eight);
+  width: 80%;
+  margin: 10px auto;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--brand-color-three);
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+input {
+  color: var(--text-color-primary);
+  padding: 0px 10px 0px 20px;
+  border: none;
+  background: var(--background-color-main);
+  outline: none;
+  margin-right: 10px;
+  position: relative;
+  border-radius: 20px;
+  width: 16rem;
+  height: 3.2rem;
+  font-family: var(--font-family-content);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+input::placeholder {
+  color: var(--text-color-primary);
+  opacity: 0.6;
+}
+
+.nav-container {
+  display: flex;
+  position: relative;
+  overflow: visible;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  justify-content: center;
+  margin: 0 10px;
+  color: var(--text-color-primary);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.nav-icon:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.nav-icon svg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.search-button {
+  align-self: center;
+  position: relative;
+  overflow: hidden;
+  height: 3.2rem;
+  width: 3.2rem;
+  border-radius: 0.75rem;
+  border: none;
+  background-color: var(--background-color-main);
+  color: var(--text-color-primary);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.search-button:hover svg {
+  color: var(--text-color-primary);
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.search-button.pulse {
+  animation: pulse-once 0.8s;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+.nav-logo-image {
+  width: 12rem;
+  height: 4rem;
+}
+
+@keyframes pulse-once {
+  0% {
+    box-shadow: 0 0 0 0 var(--brand-color-six);
+  }
+  70% {
+    box-shadow: 0 0 0 12px var(--brand-color-three);
+  }
+  100% {
+    box-shadow: 0 0 0 0 var(--brand-color-three);
+  }
+}
+
+.search-bar {
+  display: flex;
+  position: relative;
+  height: 3.2rem;
+}
+
+.search-history {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--neutral-color-eight);
+  color: var(--text-color-primary);
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+}
+
+.search-history li {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.search-history li:last-child {
+  border-bottom: none;
+}
+
+.search-history li:hover {
+  background-color: var(--transparent-brand-one);
+}
+
+.search-history li.highlighted {
+  background-color: var(--transparent-brand-one);
+  color: var(--text-color-primary);
+}
+
+.search-history::-webkit-scrollbar {
+  width: 8px;
+}
+
+.search-history::-webkit-scrollbar-thumb {
+  background-color: var(--brand-color-five);
+  border-radius: 4px;
+}
+
+.search-history::-webkit-scrollbar-track {
+  background-color: var(--brand-color-one);
+  border-radius: 4px;
+}
+
+.hamburger-menu-toggle {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  color: var(--text-color-primary);
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+@media (max-width: 1024px) {
+  nav {
+    width: 90%; /* Give it more width as screen size decreases */
+    padding: 8px;
+  }
+
+  input {
+    width: 14rem; /* Slightly reduce input width */
+    height: 2.8rem;
+    font-size: 18px; /* Slightly smaller font */
+    padding: 0px 8px 0px 18px; /* Adjust padding */
+  }
+
+  .search-button {
+    height: 2.8rem;
+    width: 2.8rem;
+  }
+
+  .search-bar {
+    height: 2.8rem; /* Adjust search bar height */
+  }
+
+  .nav-icon {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 8px;
+  }
+
+  .nav-icon svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  .nav-logo-image {
+    width: 10rem; /* Smaller logo */
+    height: 3.5rem;
+  }
+
+  .search-history {
+    max-height: 120px; /* Adjust max-height for history */
+  }
+
+  .search-history li {
+    padding: 7px 10px;
+  }
+}
+
+/* For screens up to 768px (e.g., tablets in portrait, large phones) */
+@media (max-width: 768px) {
+  nav {
+    padding: 10px 10px;
+  }
+
+  input {
+    width: 70%;
+    height: 2.8rem;
+    font-size: 16px;
+    margin-right: 5px; /* Reduce margin */
+    padding: 0px 6px 0px 15px;
+  }
+
+  .search-button {
+    height: 2.8rem;
+    width: 2.8rem;
+    border-radius: 0.5rem; /* Slightly smaller border-radius */
+  }
+
+  .hamburger-menu-toggle {
+    display: flex;
+    padding-left: 5px;
+  }
+
+  .nav-icons {
+    display: none;
+    flex-direction: column;
+    background-color: var(--neutral-color-eight);
+    position: absolute;
+    top: 44%;
+    right: 5%;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    border: 1px solid #ddd;
+    transition: all 0.3s ease;
+  }
+
+  .nav-icons.open {
+    display: flex;
+  }
+
+  .nav-icon {
+    width: 2rem;
+    height: 2rem;
+    margin: 0 5px;
+  }
+
+  .nav-icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+
+  .nav-logo {
+    margin-right: 0;
+    justify-content: center;
+  }
+  .nav-logo-image {
+    width: 6rem;
+    height: 2.8rem;
+    padding: 0;
+  }
+
+  .search-history {
+    max-height: 100px; /* Smaller max-height for very small screens */
+    width: 90%; /* Make it wider on small screens */
+    font-size: 0.9rem;
+  }
+
+  .search-history li {
+    padding: 6px 10px;
+  }
+}

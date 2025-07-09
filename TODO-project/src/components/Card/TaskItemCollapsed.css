@@ -1,0 +1,186 @@
+.card-collapse {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background-color: var(--transparent-brand-one);
+  color: var(--text-color-primary);
+  border: 2px solid var(--brand-color-four);
+  border-radius: 0.5rem;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-family: var(--font-family-content);
+  font-size: 18px;
+  position: relative;
+}
+
+.card-collapse:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Header styling remains consistent */
+.card-collapse .card-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: var(--brand-color-eight);
+}
+.card-collapse .card-title,
+.card-collapse .card-description {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  overflow-y: auto;
+  max-height: 5.5rem;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.card-collapse .add-card {
+  height: 100px;
+}
+.card-content-wrapper {
+  max-height: 500px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+.card-content-wrapper.closed {
+  max-height: 0;
+  opacity: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.card-content-wrapper.opened {
+  display: block;
+  padding: 0.5rem 1rem;
+}
+
+.card-collapse p span {
+  font-weight: bold;
+}
+
+.card-collapse .card-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.card-collapse .favorite-button svg {
+  height: 1.75rem;
+  width: 1.75rem;
+}
+
+.card-collapse .card-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  color: var(--text-color-primary);
+  flex-shrink: 0;
+}
+
+.card-collapse .card-icon:hover {
+  transform: scale(1.1);
+}
+
+.card-collapse.ghost-card {
+  opacity: 0.8;
+  background-color: var(--transparent-brand-one);
+  font-style: italic;
+  border: 2px dashed var(--brand-color-five);
+}
+
+.card-collapse.ghost-card .card-header {
+  background-color: var(--transparent-brand-one);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.empty-message.card-collapse {
+  padding: 12px 16px;
+  text-align: center;
+  border: 2px solid var(--brand-color-four);
+}
+
+@media (max-width: 1024px) {
+  .card-collapse {
+    /* Slightly adjust font size for better readability on tablets */
+    font-size: 17px;
+  }
+
+  .card-collapse .card-title,
+  .card-collapse .card-description {
+    /* Slightly reduce title and description font size */
+    font-size: 1.1rem;
+    /* Allow a bit more height for content */
+    max-height: 5rem;
+  }
+
+  .card-content-wrapper.opened {
+    /* Adjust padding for a slightly more compact look */
+    padding: 0.4rem 0.8rem;
+  }
+
+  .card-collapse .card-icons {
+    /* Reduce margin top to save some space */
+    margin-top: 0.4rem;
+    padding: 0.4rem 0;
+  }
+
+  .card-collapse .favorite-button svg {
+    /* Slightly smaller icons */
+    height: 1.6rem;
+    width: 1.6rem;
+  }
+}
+
+/* Styles for screens up to 768px wide (e.g., tablets in portrait, large phones) */
+@media (max-width: 768px) {
+  .card-collapse {
+    /* Further reduce font size for smaller screens */
+    font-size: 16px;
+    /* Adjust border-radius if desired for a softer look */
+    border-radius: 0.4rem;
+  }
+
+  .card-collapse .card-header {
+    /* Adjust header padding for smaller screens */
+    padding: 0 0.8rem;
+  }
+
+  .card-collapse .card-title,
+  .card-collapse .card-description {
+    /* More significant reduction in font size for titles/descriptions */
+    font-size: 1rem;
+    /* Limit height further to keep cards concise */
+    max-height: 4.5rem;
+  }
+
+  .card-content-wrapper.opened {
+    /* More compact padding for content */
+    padding: 0.3rem 0.6rem;
+  }
+
+  .card-collapse .card-icons {
+    /* Smaller margins and padding for icons */
+    margin-top: 0.3rem;
+    padding: 0.3rem 0;
+  }
+
+  .card-collapse .favorite-button svg {
+    /* Even smaller icons for mobile */
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .empty-message.card-collapse {
+    /* Adjust padding for empty message on smaller screens */
+    padding: 10px 12px;
+  }
+}

@@ -1,0 +1,112 @@
+/* Universal Resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Base Variables (Light Theme) --- */
+:root {
+  /* Brand Colors (Warm Palette) */
+  --brand-color-one: #ffba08; /* Bright Yellow */
+  --brand-color-two: #faa307; /* Orange-Yellow */
+  --brand-color-three: #f48c06; /* Orange */
+  --brand-color-four: #e85d04; /* Deep Orange */
+  --brand-color-five: #dc2f02; /* Red-Orange */
+  --brand-color-six: #9d0208; /* Dark Red */
+  --brand-color-seven: #6a040f; /* Deep Burgundy */
+
+  /* Neutral Colors */
+  --neutral-color-light: #f5f5f5; /* Light Grey (Backgrounds, Borders) */
+  --neutral-color-dark: #333; /* Dark Grey (Primary Text, Icons) */
+  --neutral-color-text-alt: #f5f5f5; /* Light Text (on dark backgrounds) */
+  --neutral-color-eight: #eeeeee;
+
+  /* Gradients & Transparencies */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--brand-color-one) 0%,
+    var(--brand-color-three) 25%,
+    var(--brand-color-five) 50%,
+    var(--brand-color-six) 75%,
+    var(--brand-color-seven) 100%
+  );
+  --transparent-brand-one: rgba(255, 186, 8, 0.5); /* Semi-transparent Yellow */
+
+  /* Font Families */
+  --font-family-content: "Zen Kaku Gothic New", sans-serif;
+  --font-family-header: "Zen Maru Gothic", sans-serif;
+
+  /* Global Text Colors */
+  --text-color-primary: var(--neutral-color-dark); /* Default text color */
+  --text-color-secondary: var(
+    --neutral-color-text-alt
+  ); /* Text on dark elements */
+
+  /* Background Colors */
+  --background-color-main: var(--neutral-color-light);
+}
+
+/* --- Dark Theme Overrides --- */
+html[data-theme="dark"] {
+  /* Backgrounds & Text */
+  --background-color-main: #2d3748; /* Darker, soft grey-blue for main background */
+  --text-color-primary: #f6f8f9; /* Slightly off-white for main text */
+  --text-color-secondary: #f5f5f5; /* Retain for consistency if needed */
+  --neutral-color-light: #e0e0e0; /* Lighter text color (used as 'dark' in light theme) */
+  --neutral-color-dark: #e0e0e0; /* Adjusted for dark mode text where default was dark */
+
+  /* Primary Accent Colors (Darker, slightly desaturated versions of your warm palette) */
+  --brand-color-one: #db7c00;
+  --brand-color-two: #b34b00;
+  --brand-color-three: #e54202;
+  --brand-color-four: #ffba08; /* This was an odd one, moved it down the gradient a bit */
+  --brand-color-five: #e00b00;
+  --brand-color-six: #8b0005;
+  --brand-color-seven: #59000a;
+
+  /* Neutral Accent for elements that should contrast with primaries */
+  --neutral-color-eight: #555555; /* A darker grey for borders, secondary text, etc. (new variable name) */
+
+  /* Gradient (adjusted for darker tones) */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--brand-color-one) 0%,
+    var(--brand-color-three) 25%,
+    var(--brand-color-five) 50%,
+    var(--brand-color-six) 75%,
+    var(--brand-color-seven) 100%
+  );
+
+  /* Transparent/Semi-transparent color for overlays, hovers etc. */
+  --transparent-brand-one: rgba(
+    224,
+    112,
+    0,
+    0.4
+  ); /* Darker, less intense transparent orange */
+}
+
+/* --- Root Container Styles --- */
+#root {
+  background-color: var(--background-color-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+  color: var(--text-color-primary); /* Apply default text color here */
+  font-family: var(--font-family-content); /* Apply default font here */
+}
+
+/* --- Accessibility & Focus States --- */
+button:focus,
+a:focus,
+input:focus {
+  outline: 2px solid var(--brand-color-five); /* Using brand color for focus */
+  border-radius: 4px;
+  outline-offset: 2px;
+}

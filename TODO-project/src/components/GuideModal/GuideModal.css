@@ -1,0 +1,103 @@
+/* Guide Modal Overlay */
+.guide-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9998;
+}
+
+/* Guide Modal Box (The guide content) */
+.guide-modal {
+  font-family: var(--font-family-content);
+  font-size: 20px;
+  position: fixed; /* Fixed position relative to viewport */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--background-color-main);
+  color: var(--text-color-primary);
+  padding: 1.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0 20px var(--brand-color-one);
+  border: 2px solid var(--brand-color-five);
+  z-index: 10000;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  animation: fadeSlide 0.3s ease-out;
+}
+
+/* Slide and fade effect */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Buttons */
+.guide-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color-primary);
+  z-index: 2;
+}
+
+.close-btn:hover {
+  color: var(--brand-color-six);
+}
+
+.close-btn svg {
+  width: 30px;
+  height: 30px;
+}
+
+.guide-buttons button {
+  padding: 6px 12px;
+  border: 2px solid var(--brand-color-five);
+  background-color: var(--transparent-brand-one);
+  color: var(--text-color-primary);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+.guide-buttons button:hover {
+  background-color: var(--brand-color-one);
+  color: var(--text-color-primary);
+}
+
+.guide-buttons button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.step-indicator {
+  font-size: 12px;
+  color: var(--brand-color-four);
+}
+
+.guide-highlight-clone {
+  position: absolute;
+  outline: 7px solid var(--text-color-secondary);
+  box-shadow: 0 0 50px var(--brand-color-five);
+  transition: outline 0.3s ease;
+  border-radius: 10px;
+  pointer-events: none;
+  z-index: 9999;
+  background-color: transparent;
+}

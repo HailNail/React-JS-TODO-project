@@ -1,0 +1,219 @@
+.card-grid {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto;
+  background-color: var(--neutral-color-eight);
+  color: var(--text-color-primary);
+  border: 2px solid var(--brand-color-four);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  font-family: var(--font-family-content);
+  font-size: 1.25rem;
+}
+.card-grid:hover {
+  transform: scale(1.02);
+}
+
+.card-grid .card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem 0;
+  margin: 0 1rem;
+}
+
+.card-grid .card-description,
+.card-grid .card-title {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  line-height: 1.8rem;
+  height: 5.5rem;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.card-title {
+  flex: 1;
+  text-overflow: ellipsis;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+span {
+  font-weight: bold;
+}
+
+.add-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 7px;
+  background-color: inherit;
+  color: var(--color-text-primary);
+  border: 2px solid var(--brand-color-four);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.grid .add-card {
+  min-height: 300px;
+}
+
+.add-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.add-card:hover::before {
+  opacity: 0.6;
+}
+
+.add-card > * {
+  position: relative;
+  z-index: 1;
+}
+.card-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--text-color-primary);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.card-icon:hover {
+  transform: scale(1.1);
+}
+
+button svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.add-card svg {
+  height: 2.8rem;
+  width: 2.8rem;
+}
+
+.add-card:hover svg {
+  color: var(--text-color-primary);
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.check:hover {
+  color: #28a745;
+}
+
+.edit:hover {
+  color: var(--brand-color-two);
+}
+
+.trash:hover {
+  color: var(--brand-color-six);
+}
+
+.restore:hover {
+  color: #28a745;
+}
+
+.favorite-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  flex-shrink: 0;
+  color: var(--text-color-primary);
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.favorite-button:hover {
+  color: var(--brand-color-four);
+}
+
+.favorite-button svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.card-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0;
+  gap: 10px;
+  align-items: center;
+}
+
+.card-title::-webkit-scrollbar,
+.card-description::-webkit-scrollbar {
+  width: 0.5rem;
+}
+.card-title::-webkit-scrollbar-thumb,
+.card-description::-webkit-scrollbar-thumb {
+  background-color: var(--brand-color-five);
+  border-radius: 0.25rem;
+}
+.card-title::-webkit-scrollbar-track,
+.card-description::-webkit-scrollbar-track {
+  background-color: var(--brand-color-one);
+  border-radius: 0.25rem;
+}
+
+.card-grid.ghost-card {
+  opacity: 0.8;
+  font-style: italic;
+  border: 2px dashed var(--brand-color-five);
+  background-color: var(--transparent-brand-one);
+  position: relative;
+}
+
+.ghost-card::after {
+  content: "Completed";
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.8rem;
+  background: var(--brand-color-five);
+  color: var(--text-color-secondary);
+  padding: 2px 6px;
+  border-radius: 0.25rem;
+}
+
+.ghost-card .card-content-wrapper,
+.ghost-card .favorite-button {
+  pointer-events: none;
+}
+
+.ghost-card .card-icons {
+  pointer-events: auto; /* ✅ allow only buttons */
+  display: flex;
+  justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+  .card-grid {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
