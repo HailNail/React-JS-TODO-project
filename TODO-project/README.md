@@ -20,7 +20,6 @@ This app allows users to add, edit, delete, and mark tasks as complete, search t
 
 ## 📸 Screenshots
 
-```
 ![Light Mode](./docs/light-mode.png)
 ![Dark Mode](./docs/dark-mode.png)
 ![Add Task](./docs/add-task.png)
@@ -28,7 +27,6 @@ This app allows users to add, edit, delete, and mark tasks as complete, search t
 ![Guide](./docs/guide.png)
 ![Search Bar](./docs/search-bar.png)
 
-```
 
 ## 🧑‍💻 Tech Stack
 
