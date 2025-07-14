@@ -10,7 +10,13 @@ import {
   isTaskInList,
 } from "../utils/storage";
 
-export const useTaskManager = (initialTasks = []) => {
+export const useTaskManager = (
+  initialTasks = [],
+  showFavoritesOnly,
+  hasSearched,
+  searchPerformedQuery,
+  setSearchedTasks
+) => {
   const [taskData, setTaskData] = useState(initialTasks);
   const [currentTask, setCurrentTask] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -59,6 +65,18 @@ export const useTaskManager = (initialTasks = []) => {
 
     addTaskToList("performedTasks", completedTask);
     cleanFavoriteTasks(updatedTasks);
+    if (hasSearched) {
+      const updatedSearch = updatedTasks
+        .filter((task) =>
+          showFavoritesOnly ? isTaskInList("favoriteTasks", task.id) : true
+        )
+        .filter((task) =>
+          task.title.toLowerCase().includes(searchPerformedQuery.toLowerCase())
+        )
+        .filter((task) => !isTaskInList("performedTasks", task.id));
+
+      setSearchedTasks(updatedSearch);
+    }
   };
 
   const handleRestore = (task) => {
@@ -74,11 +92,23 @@ export const useTaskManager = (initialTasks = []) => {
       title: cleanTask.title.replace(/\s*\(Completed!\)\s*$/i, ""),
     };
 
-    // 🔄 Replace any previous instance and add back the restored one
-    setTaskData((prev) => [
-      ...prev.filter((t) => t.id !== restoredTask.id),
+    const nextTaskData = [
+      ...taskData.filter((t) => t.id !== restoredTask.id),
       restoredTask,
-    ]);
+    ];
+    setTaskData(nextTaskData);
+
+    if (hasSearched) {
+      const updatedSearch = nextTaskData
+        .filter((t) =>
+          showFavoritesOnly ? isTaskInList("favoriteTasks", t.id) : true
+        )
+        .filter((t) =>
+          t.title.toLowerCase().includes(searchPerformedQuery.toLowerCase())
+        );
+
+      setSearchedTasks(updatedSearch);
+    }
   };
 
   return {

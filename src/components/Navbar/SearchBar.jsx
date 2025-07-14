@@ -1,5 +1,10 @@
 // components/SearchBar/SearchBar.js
-import React, { useRef, forwardRef, useImperativeHandle } from "react";
+import React, {
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
 import { IoSearchSharp } from "react-icons/io5";
 import { useSearch } from "../../hooks/useSearch";
 import "./Navbar.css";
@@ -10,6 +15,8 @@ import "./Navbar.css";
 
 const SearchBar = forwardRef(
   ({ query, setQuery, onSearch, history = [] }, ref) => {
+    const highlightedRef = useRef(null);
+
     const inputRef = useRef(null);
     const buttonRef = useRef(null);
 
@@ -28,6 +35,15 @@ const SearchBar = forwardRef(
     useImperativeHandle(ref, () => ({
       focusInput: () => inputRef.current?.focus(),
     }));
+
+    useEffect(() => {
+      if (highlightedRef.current) {
+        highlightedRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+    }, [highlightIndex]);
 
     const triggerPulse = () => {
       if (buttonRef.current) {
@@ -72,8 +88,8 @@ const SearchBar = forwardRef(
             {filteredHistory.map((term, i) => (
               <li
                 key={i}
+                ref={highlightIndex === i ? highlightedRef : null}
                 className={highlightIndex === i ? "highlighted" : ""}
-                // Use onMouseDown to prevent the input from losing focus before the click is registered
                 onMouseDown={(e) => {
                   e.preventDefault();
                   handleHistoryItemClick(term);

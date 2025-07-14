@@ -9,39 +9,23 @@ export const useVisibleTasks = ({
   taskData,
   searchedTasks,
   hasSearched,
-  searchPerformedQuery,
+
   showFavoritesOnly,
 }) => {
   const ghostList = (loadFromStorage("performedTasks") || [])
     .filter((task) => task && task.title)
     .map((task) => ({ ...task, isGhost: true }));
-  const filteredGhosts = hasSearched // Only filter ghosts if a search has been initiated
-    ? ghostList.filter((task) => {
-        // Use searchPerformedQuery here for the actual filtering
-        const currentSearchTerm = searchPerformedQuery.toLowerCase();
-        const rawTitle = task.title
-          .replace(/\s*\(Completed!\)\s*$/i, "")
-          .toLowerCase();
-        const completedIndicator = "(completed!)";
 
-        return (
-          rawTitle.includes(currentSearchTerm) ||
-          completedIndicator.includes(currentSearchTerm)
-        );
-      })
-    : ghostList; // If no search active, show all ghost tasks
-
-  const baseList = hasSearched ? searchedTasks : taskData;
-  const allVisibleTasks = [...baseList, ...filteredGhosts];
+  const combinedList = hasSearched
+    ? searchedTasks
+    : [...taskData, ...ghostList];
 
   const filteredList = showFavoritesOnly
-    ? allVisibleTasks.filter((task) => isTaskInList("favoriteTasks", task.id))
-    : allVisibleTasks;
+    ? combinedList.filter((task) => isTaskInList("favoriteTasks", task.id))
+    : combinedList;
 
   return {
     ghostList,
-    filteredGhosts,
-    allVisibleTasks,
     filteredList,
   };
 };
