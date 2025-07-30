@@ -117,19 +117,19 @@ button svg {
   transition: transform 0.3s ease;
 }
 
-.check:hover {
+.card-icon.check:hover {
   color: #28a745;
 }
 
-.edit:hover {
+.card-icon.edit:hover {
   color: var(--brand-color-two);
 }
 
-.trash:hover {
+.card-icon.trash:hover {
   color: var(--brand-color-six);
 }
 
-.restore:hover {
+.card-icon.restore:hover {
   color: #28a745;
 }
 

@@ -12,7 +12,6 @@ import "./Card/TaskItemCollapsed.css";
 
 const TaskList = () => {
   const { tasks, onAddClick, showFavoritesOnly, isListView } = useTasks();
-
   const isEmpty = tasks.length === 0;
 
   const randomMessage = useMemo(() => {

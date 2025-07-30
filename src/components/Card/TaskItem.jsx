@@ -17,7 +17,8 @@ import {
 const FAVORITES_KEY = "favoriteTasks";
 
 const TaskItem = ({ task }) => {
-  const { onEdit, onDelete, onMarkDone, onRestore, isCollapsed } = useTasks();
+  const { onEdit, onDeleteClick, onMarkDone, onRestore, isCollapsed } =
+    useTasks();
 
   const [isOpen, setIsOpen] = useState(!isCollapsed);
   const [isFavorite, setIsFavorite] = useState(
@@ -84,7 +85,10 @@ const TaskItem = ({ task }) => {
         </p>
 
         <div className="card-icons">
-          <button className="card-icon trash" onClick={() => onDelete(task.id)}>
+          <button
+            className="card-icon trash"
+            onClick={() => onDeleteClick(task.id)}
+          >
             <FaTrashAlt />
           </button>
 

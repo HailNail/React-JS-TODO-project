@@ -1,6 +1,7 @@
 // App.jsx
 import { TaskContext } from "./utils/TaskContext";
 import { loadFromStorage } from "./utils/storage";
+import { useState } from "react";
 
 // Components
 import Header from "./components/Header/Header";
@@ -16,15 +17,19 @@ import { useTaskManager } from "./hooks/useTaskManager";
 import { useTaskSearch } from "./hooks/useTaskSearch";
 import { useVisibleTasks } from "./hooks/useVisibleTasks";
 import { useProgress } from "./hooks/useProgress";
-import { useUIState } from "./hooks/useUIState"; // 👈 Import the new hook
+import { useUIState } from "./hooks/useUIState";
 
 import "./App.css";
+import ConfirmDialog from "./components/ConfirmDialog";
 // This is the main App component that ties everything together
 // It uses context to provide task data and handlers to child components
 // It also manages UI state such as form visibility and search filters
 
 function App() {
   const { uiState, uiSetters } = useUIState();
+
+  const [isTaskFormDirty, setIsTaskFormDirty] = useState(false);
+  const [isDiscardConfirmVisible, setIsDiscardConfirmVisible] = useState(false);
 
   const taskManager = useTaskManager(loadFromStorage("data") || []);
 
@@ -46,6 +51,11 @@ function App() {
     visibleTasks.ghostList
   );
 
+  const handleDeleteClick = (id) => {
+    uiSetters.setTaskToDelete(id);
+    uiSetters.setIsConfirmDeleteVisible(true);
+  };
+
   const contextValue = {
     tasks: visibleTasks.filteredList,
     onEdit: (task) => {
@@ -59,7 +69,52 @@ function App() {
       taskManager.setCurrentTask(null);
       uiSetters.setFormVisible(true);
     },
-    ...uiState, // Spread UI states into context
+    ...uiState,
+    onDeleteClick: handleDeleteClick,
+  };
+
+  const handleConfirmDelete = () => {
+    if (uiState.taskToDelete) {
+      taskManager.handleDelete(uiState.taskToDelete);
+      uiSetters.setIsConfirmDeleteVisible(false);
+      uiSetters.setTaskToDelete(null);
+    }
+  };
+
+  const handleCancelDelete = () => {
+    uiSetters.setIsConfirmDeleteVisible(false);
+    uiSetters.setTaskToDelete(null);
+  };
+
+  const handleTaskFormDirtyChange = (dirty) => {
+    setIsTaskFormDirty(dirty);
+  };
+
+  const handleCloseTaskForm = () => {
+    if (isTaskFormDirty) {
+      setIsDiscardConfirmVisible(true);
+    } else {
+      uiSetters.setFormVisible(false);
+      taskManager.setCurrentTask(null);
+    }
+  };
+
+  const handleConfirmDiscard = () => {
+    uiSetters.setFormVisible(false); // Close the TaskForm modal
+    taskManager.setCurrentTask(null); // Clear current task
+    setIsDiscardConfirmVisible(false); // Hide the confirmation modal
+    setIsTaskFormDirty(false); // Reset dirty state
+  };
+
+  const handleCancelDiscard = () => {
+    setIsDiscardConfirmVisible(false); // Hide the confirmation modal
+  };
+
+  const handleSaveTask = (task) => {
+    taskManager.handleAddOrUpdate(task);
+    uiSetters.setFormVisible(false); // Close the form after saving
+    taskManager.setCurrentTask(null);
+    setIsTaskFormDirty(false); // Reset dirty state
   };
 
   return (
@@ -85,11 +140,29 @@ function App() {
         <Modal onClose={() => uiSetters.setFormVisible(false)}>
           <TaskForm
             task={taskManager.currentTask}
-            onSave={(task) => {
-              taskManager.handleAddOrUpdate(task);
-              uiSetters.setFormVisible(false);
-            }}
-            onCancel={() => uiSetters.setFormVisible(false)}
+            onSave={handleSaveTask}
+            onCancel={handleCloseTaskForm}
+            onFormDirtyChange={handleTaskFormDirtyChange}
+          />
+        </Modal>
+      )}
+
+      {uiState.taskToDelete && (
+        <Modal onClose={handleCancelDelete}>
+          <ConfirmDialog
+            message="Are you sure you want to delete this task?"
+            onConfirm={handleConfirmDelete}
+            onCancel={handleCancelDelete}
+          />
+        </Modal>
+      )}
+
+      {isDiscardConfirmVisible && (
+        <Modal onClose={handleCancelDiscard}>
+          <ConfirmDialog
+            message="You have unsaved changes. Are you sure you want to discard them?"
+            onConfirm={handleConfirmDiscard}
+            onCancel={handleCancelDiscard}
           />
         </Modal>
       )}

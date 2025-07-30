@@ -32,9 +32,18 @@
 
   border: 2px solid var(--brand-color-five);
   min-width: 500px;
+
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  min-height: 150px;
 }
 
 form {
@@ -94,11 +103,14 @@ textarea::-webkit-scrollbar-track {
   width: 70%;
   display: flex;
   justify-content: space-around;
+  margin: 10px auto;
 }
 
 .modal-button {
   font-size: 1.2rem;
   padding: 5px;
+  min-width: 100px;
+  text-align: center;
   border-radius: 5px;
   border: none;
   background-color: var(--brand-color-three);
@@ -119,6 +131,47 @@ textarea::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0.6);
   pointer-events: auto;
   z-index: 998; /* behind highlights */
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.input-error {
+  outline: 3px solid #ca0101;
+  outline-offset: 2px;
+  border-radius: 5px;
+  animation: shake 0.5s ease-in-out;
+}
+
+.error-message {
+  font-family: var(--font-family-content);
+  color: #ca0101;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: -7px;
+  margin-bottom: 10px;
+}
+
+.confirm-header {
+  font-family: var(--font-family-content);
 }
 
 @media screen and (max-width: 1024px) {

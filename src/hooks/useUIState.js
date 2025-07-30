@@ -11,7 +11,8 @@ export const useUIState = () => {
   const [isFormVisible, setFormVisible] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isListView, setIsListView] = useState(false);
-
+  const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
 
@@ -36,6 +37,8 @@ export const useUIState = () => {
       isListView,
       isCollapsed,
       showGuide,
+      taskToDelete,
+      isConfirmDeleteVisible,
     },
     uiSetters: {
       setShowFavoritesOnly,
@@ -44,6 +47,8 @@ export const useUIState = () => {
       toggleFavorites,
       toggleViewAndCollapse,
       setShowGuide,
+      setTaskToDelete,
+      setIsConfirmDeleteVisible,
     },
   };
 };
