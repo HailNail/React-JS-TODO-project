@@ -172,6 +172,7 @@ textarea::-webkit-scrollbar-track {
 
 .confirm-header {
   font-family: var(--font-family-content);
+  color: var(--text-color-primary);
 }
 
 @media screen and (max-width: 1024px) {

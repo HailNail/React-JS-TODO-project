@@ -137,7 +137,7 @@ function App() {
       </div>
 
       {uiState.isFormVisible && (
-        <Modal onClose={() => uiSetters.setFormVisible(false)}>
+        <Modal onClose={handleCloseTaskForm}>
           <TaskForm
             task={taskManager.currentTask}
             onSave={handleSaveTask}

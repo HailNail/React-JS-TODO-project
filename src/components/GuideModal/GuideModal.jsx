@@ -65,7 +65,7 @@ const GuideModal = ({ onClose }) => {
   // State to store the position/size of the target element for the highlight clone
   const [highlightRect, setHighlightRect] = useState(null);
 
-  useEscapeKey({ onEscape: onClose });
+  useEscapeKey(onClose);
 
   const handleNext = () => {
     if (!isLast) setStep(step + 1);
@@ -109,7 +109,7 @@ const GuideModal = ({ onClose }) => {
   return ReactDOM.createPortal(
     <>
       {/* Overlay */}
-      <div className="guide-modal-overlay"></div>{" "}
+      <div className="guide-modal-overlay" onClick={onClose}></div>{" "}
       {/* Now just a dimming layer */}
       {/* Highlight Clone (positioned over the original element) */}
       {highlightRect && (

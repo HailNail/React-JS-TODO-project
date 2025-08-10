@@ -257,7 +257,7 @@ input::placeholder {
     flex-direction: column;
     background-color: var(--neutral-color-eight);
     position: absolute;
-    top: 44%;
+    top: 20%;
     right: 5%;
     padding: 10px;
     border-radius: 10px;

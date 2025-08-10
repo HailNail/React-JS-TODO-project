@@ -73,9 +73,9 @@ const TaskForm = ({ task, onSave, onCancel, onFormDirtyChange }) => {
 
     const newTask = {
       id: task?.id || `${removeSpecialChars(title)}-${Date.now()}`,
-      title: removeSpecialChars(title),
+      title: title.trim(),
       date: formatDateForDisplay(date),
-      description: removeSpecialChars(description),
+      description: description.trim(),
     };
     onSave(newTask);
   };
