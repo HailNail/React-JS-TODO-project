@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-export const useSearch = (history, query, setQuery, onSearch = () => {}) => {
+export const useSearchUI = (history, query, setQuery, onSearch) => {
   const [isFocused, setIsFocused] = useState(false);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const containerRef = useRef(null);
@@ -13,18 +13,18 @@ export const useSearch = (history, query, setQuery, onSearch = () => {}) => {
     ? history.filter((term) => term.toLowerCase().includes(query.toLowerCase()))
     : history;
 
-  // Dismiss search dropdown when clicked outside
+  // outside click closes dropdown
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (containerRef.current && !containerRef.current.contains(e.target)) {
-        closeSearch();
+        closeDropdown();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const closeSearch = () => {
+  const closeDropdown = () => {
     setIsFocused(false);
     setHighlightIndex(-1);
   };
@@ -37,41 +37,33 @@ export const useSearch = (history, query, setQuery, onSearch = () => {}) => {
           prev + 1 >= filteredHistory.length ? 0 : prev + 1
         );
         break;
-
       case "ArrowUp":
         e.preventDefault();
         setHighlightIndex((prev) =>
           prev <= 0 ? filteredHistory.length - 1 : prev - 1
         );
         break;
-
       case "Enter":
         e.preventDefault();
         if (highlightIndex >= 0 && highlightIndex < filteredHistory.length) {
           setQuery(filteredHistory[highlightIndex]);
         } else {
-          onSearch?.(); // safe guard
+          onSearch?.();
         }
-        closeSearch();
+        closeDropdown();
         break;
-
       case "Escape":
         e.preventDefault();
-        closeSearch();
+        closeDropdown();
         e.target.blur();
-        break;
-
-      default:
         break;
     }
   };
 
-  const handleHistoryItemClick = (term) => {
+  const handleHistoryClick = (term) => {
     setQuery(term);
-    closeSearch();
+    closeDropdown();
   };
-
-  const showHistory = isFocused && filteredHistory.length > 0;
 
   return {
     isFocused,
@@ -80,7 +72,7 @@ export const useSearch = (history, query, setQuery, onSearch = () => {}) => {
     filteredHistory,
     containerRef,
     handleKeyDown,
-    handleHistoryItemClick,
-    showHistory,
+    handleHistoryClick,
+    showHistory: isFocused && filteredHistory.length > 0,
   };
 };

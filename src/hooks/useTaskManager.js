@@ -2,6 +2,7 @@
 // It provides functionality to add, update, delete, mark tasks as done, and restore tasks.
 // It also handles the state of the current task being edited and confirmation dialogs.
 
+// hooks/useTaskManager.js
 import { useState, useEffect } from "react";
 import {
   addTaskToList,
@@ -10,16 +11,9 @@ import {
   isTaskInList,
 } from "../utils/storage";
 
-export const useTaskManager = (
-  initialTasks = [],
-  showFavoritesOnly,
-  hasSearched,
-  searchPerformedQuery,
-  setSearchedTasks
-) => {
+export const useTaskManager = (initialTasks = []) => {
   const [taskData, setTaskData] = useState(initialTasks);
   const [currentTask, setCurrentTask] = useState(null);
-  const [showConfirm, setShowConfirm] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(taskData));
@@ -41,16 +35,10 @@ export const useTaskManager = (
     if (isGhost) {
       removeTaskFromList("performedTasks", id);
       setTaskData(updated);
-
       return;
     }
-
     setTaskData(updated);
     cleanFavoriteTasks(updated);
-  };
-
-  const handleEdit = (task) => {
-    setCurrentTask(task);
   };
 
   const handleMarkDone = (task) => {
@@ -65,27 +53,11 @@ export const useTaskManager = (
 
     addTaskToList("performedTasks", completedTask);
     cleanFavoriteTasks(updatedTasks);
-    if (hasSearched) {
-      const updatedSearch = updatedTasks
-        .filter((task) =>
-          showFavoritesOnly ? isTaskInList("favoriteTasks", task.id) : true
-        )
-        .filter((task) =>
-          task.title.toLowerCase().includes(searchPerformedQuery.toLowerCase())
-        )
-        .filter((task) => !isTaskInList("performedTasks", task.id));
-
-      setSearchedTasks(updatedSearch);
-    }
   };
 
   const handleRestore = (task) => {
-    // 💀 Exorcise the ghost with one clean slice
     removeTaskFromList("performedTasks", task.id);
-
     const { isGhost, ...cleanTask } = task;
-
-    // 🧼 Ensure the task is restored cleanly without ghost marks
     const restoredTask = {
       ...cleanTask,
       completed: false,
@@ -97,18 +69,6 @@ export const useTaskManager = (
       restoredTask,
     ];
     setTaskData(nextTaskData);
-
-    if (hasSearched) {
-      const updatedSearch = nextTaskData
-        .filter((t) =>
-          showFavoritesOnly ? isTaskInList("favoriteTasks", t.id) : true
-        )
-        .filter((t) =>
-          t.title.toLowerCase().includes(searchPerformedQuery.toLowerCase())
-        );
-
-      setSearchedTasks(updatedSearch);
-    }
   };
 
   return {
@@ -116,11 +76,8 @@ export const useTaskManager = (
     setTaskData,
     currentTask,
     setCurrentTask,
-    showConfirm,
-    setShowConfirm,
     handleAddOrUpdate,
     handleDelete,
-    handleEdit,
     handleMarkDone,
     handleRestore,
   };

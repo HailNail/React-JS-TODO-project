@@ -1,5 +1,4 @@
-import "./TaskItemGrid.css";
-import "./TaskItemCollapsed.css";
+import "./TaskItem.css";
 import { useState, useEffect } from "react";
 import { useTasks } from "../../utils/TaskContext";
 import { FaCheck, FaTrashAlt, FaEdit } from "react-icons/fa";
@@ -89,7 +88,7 @@ const TaskItem = ({ task }) => {
             className="card-icon trash"
             onClick={() => onDeleteClick(task.id)}
           >
-            <FaTrashAlt />
+            <FaTrashAlt size={24} />
           </button>
 
           {isGhost ? (
@@ -97,18 +96,18 @@ const TaskItem = ({ task }) => {
               className="card-icon restore"
               onClick={() => onRestore(task)}
             >
-              <MdOutlineRestorePage />
+              <MdOutlineRestorePage size={24} />
             </button>
           ) : (
             <>
               <button className="card-icon edit" onClick={() => onEdit(task)}>
-                <FaEdit />
+                <FaEdit size={24} />
               </button>
               <button
                 className="card-icon check"
                 onClick={() => onMarkDone(task)}
               >
-                <FaCheck />
+                <FaCheck size={24} />
               </button>
             </>
           )}

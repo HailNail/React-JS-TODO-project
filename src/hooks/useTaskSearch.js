@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-// Add loadSearchHistory to the import list
+import { useState, useEffect, useMemo } from "react";
 import {
   isTaskInList,
   loadFromStorage,
@@ -10,20 +9,20 @@ import {
 export const useTaskSearch = (taskData, showFavoritesOnly) => {
   const [query, setQuery] = useState("");
   const [searchedTasks, setSearchedTasks] = useState([]);
-  const [searchPerformedQuery, setSearchPerformedQuery] = useState("");
+  const [lastSearch, setLastSearch] = useState("");
   const [hasSearched, setHasSearched] = useState(false);
-  const [searchHistory, setSearchHistory] = useState(() => loadSearchHistory()); // This line was causing the error
+  const [searchHistory, setSearchHistory] = useState(() => loadSearchHistory());
 
   useEffect(() => {
-    if (hasSearched && searchPerformedQuery) {
-      handleSearch(true);
+    if (hasSearched && lastSearch) {
+      performSearch(true);
     }
-  }, [taskData, showFavoritesOnly, searchPerformedQuery, hasSearched]);
+  }, [taskData, showFavoritesOnly, lastSearch, hasSearched]);
 
-  const handleSearch = (isReRun = false) => {
+  const performSearch = (isReRun = false) => {
     const trimmedQuery = query.trim().toLowerCase();
     if (!isReRun) {
-      setSearchPerformedQuery(trimmedQuery);
+      setLastSearch(trimmedQuery);
     }
 
     if (!trimmedQuery) {
@@ -34,8 +33,9 @@ export const useTaskSearch = (taskData, showFavoritesOnly) => {
 
     setHasSearched(true);
 
+    // ghost tasks from local storage
     const ghostList = (loadFromStorage("performedTasks") || [])
-      .filter((task) => task && task.title)
+      .filter((task) => task?.title)
       .map((task) => ({ ...task, isGhost: true }));
 
     const allSearchableTasks = [...taskData, ...ghostList];
@@ -56,6 +56,7 @@ export const useTaskSearch = (taskData, showFavoritesOnly) => {
     });
 
     setSearchedTasks(result);
+
     if (!isReRun) {
       saveSearchTerm(trimmedQuery);
       setSearchHistory(loadSearchHistory());
@@ -66,12 +67,9 @@ export const useTaskSearch = (taskData, showFavoritesOnly) => {
     query,
     setQuery,
     searchedTasks,
-    setSearchedTasks,
-    searchPerformedQuery,
-    setSearchPerformedQuery,
     hasSearched,
-    setHasSearched,
+    lastSearch,
     searchHistory,
-    handleSearch,
+    performSearch,
   };
 };

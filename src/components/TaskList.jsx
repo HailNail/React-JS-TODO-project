@@ -3,8 +3,7 @@ import { useTasks } from "../utils/TaskContext";
 import { generalMessages, favoriteMessages } from "../utils/messages";
 import { FaPlusCircle } from "react-icons/fa";
 import { useMemo } from "react";
-import "./Card/TaskItemGrid.css";
-import "./Card/TaskItemCollapsed.css";
+import "./Card/TaskItem.css";
 
 // This component represents the task list
 // It displays a list of tasks, allows adding new tasks, and shows messages when the list is empty

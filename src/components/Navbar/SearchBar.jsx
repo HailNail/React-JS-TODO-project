@@ -1,4 +1,9 @@
 // components/SearchBar/SearchBar.js
+
+// This component represents the search bar in the navigation bar
+// It allows users to search for tasks, view search history, and trigger search actions.
+// It also provides a way to focus the input field programmatically from the parent component.
+
 import React, {
   useEffect,
   useRef,
@@ -6,19 +11,14 @@ import React, {
   useImperativeHandle,
 } from "react";
 import { IoSearchSharp } from "react-icons/io5";
-import { useSearch } from "../../hooks/useSearch";
+import { useSearchUI } from "../../hooks/useSearchUI";
 import "./Navbar.css";
-
-// This component represents the search bar in the navigation bar
-// It allows users to search for tasks, view search history, and trigger search actions.
-// It also provides a way to focus the input field programmatically from the parent component.
 
 const SearchBar = forwardRef(
   ({ query, setQuery, onSearch, history = [] }, ref) => {
-    const highlightedRef = useRef(null);
-
     const inputRef = useRef(null);
     const buttonRef = useRef(null);
+    const highlightedRef = useRef(null);
 
     const {
       isFocused,
@@ -27,11 +27,10 @@ const SearchBar = forwardRef(
       filteredHistory,
       containerRef,
       handleKeyDown,
-      handleHistoryItemClick,
+      handleHistoryClick,
       showHistory,
-    } = useSearch(history, query, setQuery, onSearch);
+    } = useSearchUI(history, query, setQuery, onSearch);
 
-    // Expose a function to focus the input from the parent component
     useImperativeHandle(ref, () => ({
       focusInput: () => inputRef.current?.focus(),
     }));
@@ -48,7 +47,6 @@ const SearchBar = forwardRef(
     const triggerPulse = () => {
       if (buttonRef.current) {
         buttonRef.current.classList.remove("pulse");
-        //offsetWidth is a trick to trigger a DOM reflow, allowing the animation to restart
         void buttonRef.current.offsetWidth;
         buttonRef.current.classList.add("pulse");
       }
@@ -62,7 +60,7 @@ const SearchBar = forwardRef(
 
     return (
       <div className="search-bar-container">
-        <div className="search-bar" id="search-bar" ref={containerRef}>
+        <div className="search-bar" ref={containerRef}>
           <input
             ref={inputRef}
             value={query}
@@ -78,7 +76,6 @@ const SearchBar = forwardRef(
             ref={buttonRef}
             className="search-button"
             onClick={handleSearchClick}
-            aria-label="Search"
           >
             <IoSearchSharp />
           </button>
@@ -92,7 +89,7 @@ const SearchBar = forwardRef(
                 className={highlightIndex === i ? "highlighted" : ""}
                 onMouseDown={(e) => {
                   e.preventDefault();
-                  handleHistoryItemClick(term);
+                  handleHistoryClick(term);
                 }}
               >
                 {term}

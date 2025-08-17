@@ -33,17 +33,17 @@
     var(--brand-color-six),
     var(--brand-color-seven)
   );
-  animation: pulseGlow 3s infinite;
+  animation: pulseGlow 30s infinite;
 }
 
 @keyframes pulseGlow {
   0% {
-    box-shadow: 0 0 10px var(--brand-color-five);
+    box-shadow: 0 0 5px var(--brand-color-five);
   }
   50% {
-    box-shadow: 0 0 30px var(--brand-color-six);
+    box-shadow: 0 0 10px var(--brand-color-six);
   }
   100% {
-    box-shadow: 0 0 10px var(--brand-color-seven);
+    box-shadow: 0 0 5px var(--brand-color-seven);
   }
 }

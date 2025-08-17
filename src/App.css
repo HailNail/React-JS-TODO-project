@@ -1,26 +1,61 @@
+/* ================== TASK LIST & MODAL VARIABLES ================== */
+:root {
+  /* Colors */
+  --task-bg: var(--background-color-main);
+  --task-text: var(--text-color-primary);
+  --task-border: var(--brand-color-four);
+  --task-hover: var(--brand-color-five);
+  --task-error: #ca0101;
+  --modal-overlay-bg: rgba(30, 30, 30, 0.5);
+  --guide-backdrop-bg: rgba(0, 0, 0, 0.6);
+  --textarea-bg: var(--transparent-brand-one);
+  --textarea-scrollbar-thumb: var(--brand-color-five);
+  --textarea-scrollbar-track: var(--brand-color-one);
+
+  /* Dimensions */
+  --task-grid-gap: 0.8rem;
+  --task-list-gap: 0.5rem;
+  --task-width-grid: 80%;
+  --task-width-list: 50%;
+  --task-radius: 8px;
+  --modal-padding: 1rem;
+  --modal-radius: 12px;
+  --modal-min-width: 500px;
+  --form-width: 70%;
+  --form-padding: 10px;
+  --modal-button-min-width: 100px;
+
+  /* Font sizes */
+  --form-font-size: 1.2rem;
+  --error-font-size: 1.4rem;
+
+  /* Transition */
+  --modal-transition: transform 0.2s ease;
+  --modal-hover-scale: 1.05;
+}
+
+/* ================== TASK LIST ================== */
 .task-list.grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 0.8rem;
-  width: 80%;
+  gap: var(--task-grid-gap);
+  width: var(--task-width-grid);
   margin: 0 auto;
 }
 
 .task-list.list {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  width: 50%;
+  gap: var(--task-list-gap);
+  width: var(--task-width-list);
   margin: 0 auto;
 }
 
+/* ================== MODAL ================== */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(30, 30, 30, 0.5);
+  inset: 0;
+  background: var(--modal-overlay-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,13 +63,11 @@
 }
 
 .modal-content {
-  background-color: var(--background-color-main);
-
-  border: 2px solid var(--brand-color-five);
-  min-width: 500px;
-
-  padding: 1rem;
-  border-radius: 12px;
+  background-color: var(--task-bg);
+  border: 2px solid var(--task-border);
+  min-width: var(--modal-min-width);
+  padding: var(--modal-padding);
+  border-radius: var(--modal-radius);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -57,22 +90,21 @@ form {
 form input,
 textarea {
   font-family: var(--font-family-content);
-  background-color: var(--transparent-brand-one);
-  border: 1px solid var(--brand-color-four);
-  color: var(--text-color-primary);
-  width: 70%;
-  padding: 10px;
-  margin: 0 auto;
-  font-size: 1.2rem;
-  border-radius: 8px;
+  background-color: var(--textarea-bg);
+  border: 1px solid var(--task-border);
+  color: var(--task-text);
+  width: var(--form-width);
+  padding: var(--form-padding);
+  font-size: var(--form-font-size);
+  border-radius: var(--task-radius);
   outline: none;
-  transition: border 0.2s ease;
   text-align: center;
+  transition: border 0.2s ease;
 }
 
 form input::placeholder,
 textarea::placeholder {
-  color: var(--text-color-primary);
+  color: var(--task-text);
   opacity: 0.5;
 }
 
@@ -81,81 +113,79 @@ textarea {
   resize: none;
 }
 
+/* Focus effect */
 form input:focus,
 textarea:focus {
   border-color: var(--brand-color-six);
   box-shadow: 0 0 0 2px var(--neutral-color-eight);
 }
 
+/* Scrollbar */
 textarea::-webkit-scrollbar {
   width: 0.5rem;
 }
 textarea::-webkit-scrollbar-thumb {
-  background-color: var(--brand-color-five);
+  background-color: var(--textarea-scrollbar-thumb);
   border-radius: 0.25rem;
 }
 textarea::-webkit-scrollbar-track {
-  background-color: var(--brand-color-one);
+  background-color: var(--textarea-scrollbar-track);
   border-radius: 0.25rem;
 }
 
+/* Buttons */
 .buttons {
-  width: 70%;
+  width: var(--form-width);
   display: flex;
   justify-content: space-around;
   margin: 10px auto;
 }
 
 .modal-button {
-  font-size: 1.2rem;
+  font-size: var(--form-font-size);
   padding: 5px;
-  min-width: 100px;
+  min-width: var(--modal-button-min-width);
   text-align: center;
   border-radius: 5px;
   border: none;
   background-color: var(--brand-color-three);
-  color: var(--text-color-primary);
-  transition: transform 0.2s ease;
+  color: var(--task-text);
+  transition: var(--modal-transition);
 }
 
 .modal-button:hover {
-  background-color: var(--brand-color-five);
-  color: var(--text-color-primary);
-  transform: scale(1.05);
-  transition: transform 0.3s ease;
+  background-color: var(--task-hover);
+  transform: scale(var(--modal-hover-scale));
   cursor: pointer;
 }
+
+/* Guide backdrop */
 .guide-backdrop {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: var(--guide-backdrop-bg);
   pointer-events: auto;
-  z-index: 998; /* behind highlights */
+  z-index: 998;
 }
 
+/* Error animations */
 @keyframes shake {
-  0% {
+  0%,
+  100% {
     transform: translateX(0);
   }
-  20% {
-    transform: translateX(-5px);
-  }
-  40% {
-    transform: translateX(5px);
-  }
+  20%,
   60% {
     transform: translateX(-5px);
   }
+  40%,
   80% {
     transform: translateX(5px);
-  }
-  100% {
-    transform: translateX(0);
   }
 }
 
 .input-error {
-  outline: 3px solid #ca0101;
+  outline: 3px solid var(--task-error);
   outline-offset: 2px;
   border-radius: 5px;
   animation: shake 0.5s ease-in-out;
@@ -163,41 +193,37 @@ textarea::-webkit-scrollbar-track {
 
 .error-message {
   font-family: var(--font-family-content);
-  color: #ca0101;
-  font-size: 1.4rem;
+  color: var(--task-error);
+  font-size: var(--error-font-size);
   font-weight: 600;
-  margin-top: -7px;
-  margin-bottom: 10px;
+  margin: -7px 0 10px 0;
 }
 
+/* Confirm header */
 .confirm-header {
   font-family: var(--font-family-content);
-  color: var(--text-color-primary);
+  color: var(--task-text);
 }
 
+/* ================== MEDIA QUERIES ================== */
 @media screen and (max-width: 1024px) {
   .task-list.grid {
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     width: 90%;
   }
-
   .task-list.list {
     width: 70%;
   }
-
   .modal-content {
     min-width: 400px;
   }
-
   form input,
   textarea {
     width: 85%;
   }
-
   .buttons {
     width: 85%;
   }
-
   .modal-button {
     width: 30%;
   }
@@ -205,27 +231,9 @@ textarea::-webkit-scrollbar-track {
 
 @media screen and (max-width: 768px) {
   .task-list.grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   }
-
   .task-list.list {
     width: 80%;
-  }
-
-  .modal-content {
-    min-width: 400px;
-  }
-
-  form input,
-  textarea {
-    width: 85%;
-  }
-
-  .buttons {
-    width: 85%;
-  }
-
-  .modal-button {
-    width: 30%;
   }
 }

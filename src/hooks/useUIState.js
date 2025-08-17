@@ -9,12 +9,13 @@ import { useState, useCallback } from "react";
 export const useUIState = () => {
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [isFormVisible, setFormVisible] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
   const [isListView, setIsListView] = useState(false);
   const [isConfirmDeleteVisible, setIsConfirmDeleteVisible] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const [isTaskFormDirty, setIsTaskFormDirty] = useState(false);
+  const [isDiscardConfirmVisible, setIsDiscardConfirmVisible] = useState(false);
 
   const toggleFavorites = useCallback(
     () => setShowFavoritesOnly((prev) => !prev),
@@ -24,7 +25,7 @@ export const useUIState = () => {
   const toggleViewAndCollapse = useCallback(() => {
     setIsListView((prev) => {
       const newView = !prev;
-      setIsCollapsed(newView); // Collapse when switching to list view
+      setIsCollapsed(newView);
       return newView;
     });
   }, []);
@@ -33,22 +34,24 @@ export const useUIState = () => {
     uiState: {
       showFavoritesOnly,
       isFormVisible,
-      showConfirm,
       isListView,
       isCollapsed,
       showGuide,
       taskToDelete,
       isConfirmDeleteVisible,
+      isTaskFormDirty,
+      isDiscardConfirmVisible,
     },
     uiSetters: {
       setShowFavoritesOnly,
       setFormVisible,
-      setShowConfirm,
       toggleFavorites,
       toggleViewAndCollapse,
       setShowGuide,
       setTaskToDelete,
       setIsConfirmDeleteVisible,
+      setIsTaskFormDirty,
+      setIsDiscardConfirmVisible,
     },
   };
 };
