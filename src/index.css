@@ -10,18 +10,18 @@
 /* --- Base Variables (Light Theme) --- */
 :root {
   /* Brand Colors (Warm Palette) */
-  --brand-color-one: #ffba08; /* Bright Yellow */
-  --brand-color-two: #faa307; /* Orange-Yellow */
-  --brand-color-three: #f48c06; /* Orange */
-  --brand-color-four: #e85d04; /* Deep Orange */
-  --brand-color-five: #dc2f02; /* Red-Orange */
-  --brand-color-six: #9d0208; /* Dark Red */
-  --brand-color-seven: #6a040f; /* Deep Burgundy */
+  --brand-color-one: #ffba08;
+  --brand-color-two: #faa307;
+  --brand-color-three: #f48c06;
+  --brand-color-four: #e85d04;
+  --brand-color-five: #dc2f02;
+  --brand-color-six: #9d0208;
+  --brand-color-seven: #6a040f;
 
   /* Neutral Colors */
-  --neutral-color-light: #f5f5f5; /* Light Grey (Backgrounds, Borders) */
-  --neutral-color-dark: #333; /* Dark Grey (Primary Text, Icons) */
-  --neutral-color-text-alt: #f5f5f5; /* Light Text (on dark backgrounds) */
+  --neutral-color-light: #f5f5f5;
+  --neutral-color-dark: #333;
+  --neutral-color-text-alt: #f5f5f5;
   --neutral-color-eight: #eeeeee;
 
   /* Gradients & Transparencies */
@@ -40,10 +40,8 @@
   --font-family-header: "Zen Maru Gothic", sans-serif;
 
   /* Global Text Colors */
-  --text-color-primary: var(--neutral-color-dark); /* Default text color */
-  --text-color-secondary: var(
-    --neutral-color-text-alt
-  ); /* Text on dark elements */
+  --text-color-primary: var(--neutral-color-dark);
+  --text-color-secondary: var(--neutral-color-text-alt);
 
   /* Background Colors */
   --background-color-main: var(--neutral-color-light);
@@ -52,23 +50,21 @@
 /* --- Dark Theme Overrides --- */
 html[data-theme="dark"] {
   /* Backgrounds & Text */
-  --background-color-main: #2d3748; /* Darker, soft grey-blue for main background */
-  --text-color-primary: #f6f8f9; /* Slightly off-white for main text */
-  --text-color-secondary: #f5f5f5; /* Retain for consistency if needed */
-  --neutral-color-light: #e0e0e0; /* Lighter text color (used as 'dark' in light theme) */
-  --neutral-color-dark: #e0e0e0; /* Adjusted for dark mode text where default was dark */
+  --background-color-main: #2d3748;
+  --text-color-primary: #f6f8f9;
+  --text-color-secondary: #f5f5f5;
+  --neutral-color-light: #e0e0e0;
+  --neutral-color-dark: #e0e0e0;
 
-  /* Primary Accent Colors (Darker, slightly desaturated versions of your warm palette) */
   --brand-color-one: #db7c00;
   --brand-color-two: #b34b00;
   --brand-color-three: #e54202;
-  --brand-color-four: #ffba08; /* This was an odd one, moved it down the gradient a bit */
+  --brand-color-four: #ffba08;
   --brand-color-five: #e00b00;
   --brand-color-six: #8b0005;
   --brand-color-seven: #59000a;
 
-  /* Neutral Accent for elements that should contrast with primaries */
-  --neutral-color-eight: #555555; /* A darker grey for borders, secondary text, etc. (new variable name) */
+  --neutral-color-eight: #555555;
 
   /* Gradient (adjusted for darker tones) */
   --gradient-primary: linear-gradient(
@@ -98,15 +94,22 @@ html[data-theme="dark"] {
   justify-content: space-between;
   line-height: 1.6;
   letter-spacing: 0.5px;
-  color: var(--text-color-primary); /* Apply default text color here */
-  font-family: var(--font-family-content); /* Apply default font here */
+  color: var(--text-color-primary);
+  font-family: var(--font-family-content);
 }
 
 /* --- Accessibility & Focus States --- */
 button:focus,
 a:focus,
 input:focus {
-  outline: 2px solid var(--brand-color-five); /* Using brand color for focus */
+  outline: 2px solid var(--brand-color-five);
   border-radius: 4px;
   outline-offset: 2px;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }

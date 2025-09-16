@@ -13,19 +13,23 @@ function MainLayout({
 }) {
   return (
     <div>
-      <Header />
-      <Navbar
-        searchManager={searchManager}
-        uiState={uiState}
-        onToggleFavorites={uiSetters.toggleFavorites}
-        onToggleView={uiSetters.toggleViewAndCollapse}
-        onShowHelp={() => uiSetters.setShowGuide(true)}
-      />
+      <div className="main-container">
+        <div>
+          <Header />
+          <Navbar
+            searchManager={searchManager}
+            uiState={uiState}
+            onToggleFavorites={uiSetters.toggleFavorites}
+            onToggleView={uiSetters.toggleViewAndCollapse}
+            onShowHelp={() => uiSetters.setShowGuide(true)}
+          />
 
-      <div className="card-container">
-        <TaskContext.Provider value={contextValue}>
-          <TaskList />
-        </TaskContext.Provider>
+          <div className="card-container">
+            <TaskContext.Provider value={contextValue}>
+              <TaskList />
+            </TaskContext.Provider>
+          </div>
+        </div>
       </div>
 
       <Footer {...progress} />

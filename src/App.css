@@ -95,6 +95,7 @@ textarea {
   color: var(--task-text);
   width: var(--form-width);
   padding: var(--form-padding);
+  margin: 0;
   font-size: var(--form-font-size);
   border-radius: var(--task-radius);
   outline: none;
@@ -220,7 +221,9 @@ textarea::-webkit-scrollbar-track {
   form input,
   textarea {
     width: 85%;
+    margin: 0;
   }
+
   .buttons {
     width: 85%;
   }
